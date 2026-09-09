@@ -2,6 +2,7 @@ import Link from "next/link";
 import {
   CalendarClock,
   ClipboardList,
+  FileText,
   MessageSquareText,
   Percent,
   ShieldCheck,
@@ -226,6 +227,58 @@ export function ComoFuncionamComissoes({ basePath }: { basePath: string }) {
         <p className="mt-3 text-sm text-brand-text-muted">
           Nesse exemplo, você receberá <strong className="font-semibold text-brand-text">R$ 100,00 no mês subsequente</strong>.
         </p>
+      </div>
+
+      <div className="rounded-3xl border border-brand-border bg-white p-6 shadow-sm sm:p-8">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-dark text-white">
+            <FileText className="h-5 w-5" />
+          </div>
+          <h2 className="text-2xl font-bold text-brand-text">
+            6. Documentação para receber sua comissão
+          </h2>
+        </div>
+
+        <p className="mt-4 max-w-3xl text-sm leading-relaxed text-brand-text-muted">
+          A documentação necessária para o pagamento da comissão depende do tipo de cadastro do parceiro.
+        </p>
+
+        <div className="mt-5 grid gap-4 lg:grid-cols-2">
+          <div className="rounded-2xl border border-brand-border bg-brand-background p-5">
+            <h3 className="text-lg font-semibold text-brand-text">Pessoa Física</h3>
+            <div className="mt-3 space-y-3 text-sm leading-relaxed text-brand-text-muted">
+              <p>
+                Se você estiver cadastrado como <strong className="font-semibold text-brand-text">Pessoa Física</strong>,
+                não será necessário emitir nota fiscal.
+              </p>
+              <p>
+                O pagamento da comissão será realizado pela Catedral mediante <strong className="font-semibold text-brand-text">RPA – Recibo de Pagamento a Autônomo</strong>,
+                com os descontos e retenções previstos na legislação, quando aplicáveis.
+              </p>
+              <p>
+                O valor líquido da comissão será informado considerando as eventuais retenções aplicáveis ao pagamento.
+              </p>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-brand-border bg-brand-background p-5">
+            <h3 className="text-lg font-semibold text-brand-text">Pessoa Jurídica</h3>
+            <div className="mt-3 space-y-3 text-sm leading-relaxed text-brand-text-muted">
+              <p>
+                Se você estiver cadastrado como <strong className="font-semibold text-brand-text">Pessoa Jurídica</strong>,
+                será necessário emitir uma <strong className="font-semibold text-brand-text">Nota Fiscal de Serviço (NFS-e)</strong>{" "}
+                para a Catedral.
+              </p>
+              <p>
+                A nota fiscal deverá corresponder ao valor da comissão informada para pagamento, seguindo os dados e orientações disponibilizados pela Catedral.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-900">
+          <strong className="font-semibold">Importante:</strong> Antes do pagamento, o Portal dos Parceiros apresentará as informações necessárias para que você saiba exatamente qual procedimento deverá seguir.
+        </div>
       </div>
 
       <div className="rounded-3xl border border-brand-border bg-brand-dark p-6 text-center shadow-sm sm:p-10">

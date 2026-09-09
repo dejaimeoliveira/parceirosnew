@@ -72,7 +72,6 @@ function getCurrentTitle(pathname: string, basePath: string) {
     "material-de-vendas": "Material de Vendas",
     videos: "Vídeos",
     "circuito-catedral": "Circuito Catedral",
-    apresentacoes: "Apresentações",
     imagens: "Imagens",
     whatsapp: "WhatsApp",
     "argumentos-de-venda": "Argumentos de Venda",
@@ -139,8 +138,8 @@ export function PortalShell({
         label: "Comissões",
         icon: BriefcaseBusiness,
         items: [
-          { label: "Comissões e Desempenho", href: `${basePath}/comissoes/comissoes-e-desempenho` },
           { label: "Como Funcionam as Comissões", href: `${basePath}/comissoes/como-funcionam` },
+          { label: "Comissões e Desempenho", href: `${basePath}/comissoes/comissoes-e-desempenho` },
         ],
       },
       {
@@ -150,7 +149,6 @@ export function PortalShell({
         items: [
           { label: "Vídeos", href: `${basePath}/material-de-vendas/videos` },
           { label: "Circuito Catedral", href: `${basePath}/material-de-vendas/circuito-catedral` },
-          { label: "Apresentações", href: `${basePath}/material-de-vendas/apresentacoes` },
           { label: "Imagens", href: `${basePath}/material-de-vendas/imagens` },
           { label: "Argumentos de Venda", href: `${basePath}/material-de-vendas/argumentos-de-venda` },
           { label: "Objeções", href: `${basePath}/material-de-vendas/objecoes` },
