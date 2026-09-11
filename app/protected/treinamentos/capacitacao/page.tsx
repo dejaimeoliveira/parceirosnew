@@ -1,5 +1,5 @@
 import { Capacitacao } from "@/components/dashboard/capacitacao";
 
-export default function AcademiaCatedralPage() {
+export default function CapacitacaoPage() {
   return <Capacitacao />;
 }
