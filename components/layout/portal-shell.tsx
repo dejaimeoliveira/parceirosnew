@@ -142,7 +142,7 @@ export function PortalShell({
         icon: BriefcaseBusiness,
         items: [
           { label: "Como Funcionam as Comissões", href: `${basePath}/comissoes/como-funcionam` },
-          { label: "Comissões e Desempenho", href: `${basePath}/comissoes/comissoes-e-desempenho` },
+          { label: "Minhas comissões", href: `${basePath}/comissoes/comissoes-e-desempenho` },
         ],
       },
       {

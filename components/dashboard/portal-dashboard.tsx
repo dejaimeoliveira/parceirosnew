@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -52,13 +53,32 @@ export function PortalDashboard({
     { title: "Falar com a Catedral", description: "Entre em contato com nossa equipe.", href: `${basePath}/central-do-parceiro/falar-com-a-catedral` },
   ];
 
-  const checklist = [
-    "Cadastro concluído",
-    "Conheça o Sistema Catedral",
-    "Entenda como funciona a parceria",
-    "Veja como funcionam as comissões",
-    "Aprenda a identificar um potencial cliente",
-    "Faça sua primeira indicação",
+  const onboardingSteps = [
+    {
+      title: "Conheça o Sistema Catedral",
+      description: "Entenda o produto que você irá indicar.",
+      href: `${basePath}/treinamentos/conhecendo-o-sistema-catedral`,
+    },
+    {
+      title: "Entenda como funciona a parceria",
+      description: "Saiba como funciona seu relacionamento com a Catedral.",
+      href: `${basePath}/central-do-parceiro/como-funciona-o-programa`,
+    },
+    {
+      title: "Veja como funcionam as comissões",
+      description: "Conheça as regras, percentuais e pagamentos.",
+      href: `${basePath}/comissoes/como-funcionam`,
+    },
+    {
+      title: "Aprenda a identificar um potencial cliente",
+      description: "Veja quais empresas têm o perfil ideal para o Catedral.",
+      href: `${basePath}/treinamentos/venda-por-indicacao-e-demonstracao`,
+    },
+    {
+      title: "Faça sua primeira indicação",
+      description: "Encontrou uma oportunidade? Envie os dados pelo portal.",
+      href: `${basePath}/indicacoes/nova`,
+    },
   ];
 
   return (
@@ -90,35 +110,29 @@ export function PortalDashboard({
       <div className="grid gap-6 xl:grid-cols-[1.45fr_1fr]">
         <div className="rounded-3xl border border-brand-border bg-white p-6 shadow-sm">
           <h2 className="text-2xl font-bold text-brand-text">Primeiros passos</h2>
-          <p className="mt-2 text-sm text-brand-text-muted">Complete sua preparação para começar a indicar clientes.</p>
+          <p className="mt-2 text-sm text-brand-text-muted">
+            Confira estas orientações para conhecer melhor a parceria e fazer boas indicações.
+          </p>
 
-          <div className="mt-6 space-y-4">
-            {checklist.map((item, index) => {
-              const checked = index === 0;
-              return (
-                <div key={item} className="flex items-center gap-3 rounded-xl border border-brand-border bg-brand-background px-3 py-2.5">
-                  <div
-                    className={cn(
-                      "flex h-5 w-5 items-center justify-center rounded-full border text-[10px] font-bold",
-                      checked ? "border-emerald-500 bg-emerald-500 text-white" : "border-brand-border bg-white text-brand-text-muted",
-                    )}
-                  >
-                    {checked ? "✓" : ""}
-                  </div>
-                  <span className={cn("text-sm", checked ? "font-medium text-brand-text" : "text-brand-text-muted")}>{item}</span>
+          <div className="mt-6 space-y-3">
+            {onboardingSteps.map((item, index) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="group flex items-center gap-3 rounded-2xl border border-brand-border bg-brand-background px-3 py-3 transition hover:-translate-y-0.5 hover:border-brand-primary/40 hover:bg-white hover:shadow-sm"
+              >
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-brand-border bg-white text-xs font-semibold text-brand-text-muted transition group-hover:border-brand-primary/40 group-hover:text-brand-text">
+                  {index + 1}
                 </div>
-              );
-            })}
-          </div>
 
-          <div className="mt-6">
-            <div className="mb-2 flex items-center justify-between text-sm text-brand-text-muted">
-              <span>Progresso</span>
-              <span>1 de 6 concluídos</span>
-            </div>
-            <div className="h-2.5 w-full overflow-hidden rounded-full bg-brand-border">
-              <div className="h-full w-1/6 rounded-full bg-brand-primary" />
-            </div>
+                <div className="min-w-0 flex-1">
+                  <div className="text-sm font-semibold text-brand-text">{item.title}</div>
+                  <p className="mt-1 text-xs leading-relaxed text-brand-text-muted">{item.description}</p>
+                </div>
+
+                <ArrowRight className="h-4 w-4 shrink-0 text-brand-text-muted transition group-hover:text-brand-text" />
+              </Link>
+            ))}
           </div>
         </div>
 
