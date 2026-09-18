@@ -45,7 +45,7 @@ export default function Page() {
 
       const { data: parceiro } = await supabase
         .from("wp_parceiros")
-        .select("email")
+        .select("email, token_indicacao")
         .eq("uid", userId)
         .maybeSingle();
 
@@ -59,6 +59,7 @@ export default function Page() {
         uid_parceiro: userId,
         email_parceiro: parceiro?.email ?? null,
         data_limite: calcularDataLimite(new Date()),
+        token_indicacao: parceiro?.token_indicacao ?? null,
       };
 
       const { error: insertError } = await supabase.from("wp_indicacoes").insert(payload as any);
@@ -121,7 +122,7 @@ export default function Page() {
           <div>
             <label className="block text-sm font-medium text-brand-text-muted">Empresa</label>
             <input
-              placeholder="Razão social"
+              placeholder="Nome da empresa"
               value={empresa}
               onChange={(e) => setEmpresa(e.target.value)}
               className="mt-1 w-full rounded-md border border-brand-border bg-white px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-primary"

@@ -65,6 +65,7 @@ function getCurrentTitle(pathname: string, basePath: string) {
     "minhas-indicacoes": "Minhas Indicações",
     "indicar-cliente": "Indicar Cliente",
     "nova": "Indicar Cliente",
+    "meu-link": "Meu Link de Indicação",
     comissoes: "Comissões",
     "minhas-comissoes": "Minhas Comissões",
     "comissoes-e-desempenho": "Comissões e Desempenho",
@@ -134,6 +135,7 @@ export function PortalShell({
         items: [
           { label: "Indicar Cliente", href: `${basePath}/indicacoes/nova` },
           { label: "Minhas Indicações", href: `${basePath}/indicacoes/minhas-indicacoes` },
+          { label: "Meu Link de Indicação", href: `${basePath}/indicacoes/meu-link` },
         ],
       },
       {

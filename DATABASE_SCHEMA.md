@@ -293,13 +293,14 @@ data_limite |
 
 | vendedor | default do banco | email_vendedor |
 
+| token_indicacao | wp_parceiros.token_indicacao (parceiro autenticado) ou
+p_token da RPC wp_criar_indicacao_publica (cadastro via link) | token_indicacao |
+
 Campos que NÃO pertencem ao formulário de criação:
 
 data_exclusao
 
 data_venda
-
-token_indicacao
 
 wp_indicacoes_historico
 
