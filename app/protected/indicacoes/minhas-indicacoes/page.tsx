@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { connection } from "next/server";
 import { redirect } from "next/navigation";
+import { formatCnpj, formatTelefone } from "@/lib/indicacoes/cnpj";
 
 export const dynamic = "force-dynamic";
 
@@ -42,9 +43,9 @@ export default async function Page() {
               <div className="font-medium text-brand-text">{item.nome_contato || "-"}</div>
               <div className="text-sm text-brand-text-muted">{item.origem || "-"}</div>
             </div>
-            <div className="mt-2 text-sm text-brand-text-muted">{item.email || "-"} • {item.telefone || "-"}</div>
+            <div className="mt-2 text-sm text-brand-text-muted">{item.email || "-"} • {item.telefone ? formatTelefone(item.telefone) : "-"}</div>
             {item.empresa ? <div className="mt-2 text-sm text-brand-text-muted">Empresa: {item.empresa}</div> : null}
-            {item.cnpj ? <div className="mt-1 text-sm text-brand-text-muted">CNPJ: {item.cnpj}</div> : null}
+            {item.cnpj ? <div className="mt-1 text-sm text-brand-text-muted">CNPJ: {formatCnpj(item.cnpj)}</div> : null}
             {item.observacao ? <div className="mt-3 text-sm text-brand-text-muted">{item.observacao}</div> : null}
             {item.data_indicacao ? <div className="mt-2 text-xs text-brand-text-muted">Indicada em: {String(item.data_indicacao)}</div> : null}
           </div>

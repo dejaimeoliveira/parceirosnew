@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import { formatTelefone } from "@/lib/indicacoes/cnpj";
 
 type ParceiroCadastro = {
   nome: string | null;
@@ -80,7 +81,7 @@ export default async function Page() {
         <div className="mt-6 grid gap-6 rounded-2xl border border-brand-border bg-brand-background/60 p-5 sm:grid-cols-2">
           <Campo label="Nome" value={data.nome || "Não informado"} />
           <Campo label="E-mail" value={data.email || "Não informado"} />
-          <Campo label="Telefone" value={data.telefone || "Não informado"} />
+          <Campo label="Telefone" value={data.telefone ? formatTelefone(data.telefone) : "Não informado"} />
           <Campo label="CPF" value={formatCpf(data.cpf) || "Não informado"} />
           <Campo label="Chave PIX" value={data.pix_conta || "Não informada"} />
         </div>

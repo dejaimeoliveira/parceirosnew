@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
+import { formatCnpj, formatTelefone, sanitizeDigits } from "@/lib/indicacoes/cnpj";
 
 function calcularDataLimite(dataIndicacao: Date) {
   const dataLimite = new Date(dataIndicacao);
@@ -52,9 +53,9 @@ export default function Page() {
       const payload: any = {
         nome_contato: nome || null,
         email: email || null,
-        telefone: telefone || null,
+        telefone: telefone ? sanitizeDigits(telefone) : null,
         empresa: empresa || null,
-        cnpj: cnpj,
+        cnpj: sanitizeDigits(cnpj),
         observacao: descricao || null,
         uid_parceiro: userId,
         email_parceiro: parceiro?.email ?? null,
@@ -103,7 +104,8 @@ export default function Page() {
             <input
               placeholder="00.000.000/0000-00"
               value={cnpj}
-              onChange={(e) => setCnpj(e.target.value)}
+              onChange={(e) => setCnpj(formatCnpj(e.target.value))}
+              inputMode="numeric"
               required
               className="mt-1 w-full rounded-md border border-brand-border bg-white px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-primary"
             />
@@ -114,7 +116,8 @@ export default function Page() {
             <input
               placeholder="(00) 00000-0000"
               value={telefone}
-              onChange={(e) => setTelefone(e.target.value)}
+              onChange={(e) => setTelefone(formatTelefone(e.target.value))}
+              inputMode="numeric"
               className="mt-1 w-full rounded-md border border-brand-border bg-white px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-primary"
             />
           </div>
