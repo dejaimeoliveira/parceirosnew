@@ -46,7 +46,16 @@ export default async function PortalLayout({ children }: { children: React.React
     .eq("uid", userId)
     .maybeSingle();
 
-  if (error || !parceiro || parceiro.ativo !== true) {
+  if (error) {
+    redirect("/auth/login");
+  }
+
+  if (!parceiro) {
+    // Sessão válida, mas cadastro de parceiro ainda não concluído.
+    redirect("/auth/concluir-cadastro");
+  }
+
+  if (parceiro.ativo !== true) {
     redirect("/auth/login");
   }
 

@@ -113,6 +113,16 @@ export function LoginForm({
         >
           {isLoading ? "Entrando..." : "Entrar"}
         </Button>
+
+        <div className="mt-5 text-center text-sm text-brand-text-muted">
+          Ainda não é parceiro?{" "}
+          <Link
+            href="/auth/sign-up"
+            className="font-medium text-brand-text underline-offset-4 transition hover:underline"
+          >
+            Cadastre-se
+          </Link>
+        </div>
       </form>
     </div>
   );

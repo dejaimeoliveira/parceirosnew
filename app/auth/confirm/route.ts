@@ -3,11 +3,26 @@ import { type EmailOtpType } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
 import { type NextRequest } from "next/server";
 
+// Aceita somente caminhos internos ("/algo"), nunca uma URL absoluta ou
+// protocolo-relativa — evita que um "next" malicioso na query string
+// redirecione o usuário, já autenticado, para um domínio externo.
+function resolveSafeNext(rawNext: string | null): string {
+  const FALLBACK = "/";
+
+  if (!rawNext) return FALLBACK;
+  if (!rawNext.startsWith("/")) return FALLBACK;
+  if (rawNext.startsWith("//")) return FALLBACK;
+  if (rawNext.startsWith("/\\")) return FALLBACK;
+  if (rawNext.includes("://")) return FALLBACK;
+
+  return rawNext;
+}
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const token_hash = searchParams.get("token_hash");
   const type = searchParams.get("type") as EmailOtpType | null;
-  const next = searchParams.get("next") ?? "/";
+  const next = resolveSafeNext(searchParams.get("next"));
 
   if (token_hash && type) {
     const supabase = await createClient();
