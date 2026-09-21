@@ -109,19 +109,10 @@ export function LoginForm({
         <Button
           type="submit"
           disabled={isLoading}
-          className="mt-6 h-12 w-full rounded-xl bg-brand-dark text-base font-semibold text-white transition hover:bg-brand-dark/90 disabled:cursor-not-allowed disabled:opacity-70"
+          className="mt-6 h-12 w-full rounded-xl bg-brand-primary text-base font-semibold text-brand-dark transition hover:bg-brand-primary-hover focus-visible:ring-brand-primary disabled:cursor-not-allowed disabled:opacity-70"
         >
           {isLoading ? "Entrando..." : "Entrar"}
         </Button>
-
-        <div className="mt-5 text-center">
-          <Link
-            href="/auth/forgot-password"
-            className="text-base text-brand-text-muted underline-offset-4 transition hover:text-brand-text hover:underline"
-          >
-            Esqueci minha senha
-          </Link>
-        </div>
       </form>
     </div>
   );
