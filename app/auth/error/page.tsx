@@ -29,15 +29,15 @@ async function ErrorContent({
   return (
     <>
       <CardHeader className="p-0 pb-2">
-        <CardTitle className="text-2xl">Sorry, something went wrong.</CardTitle>
+        <CardTitle className="text-2xl">Ocorreu um erro.</CardTitle>
       </CardHeader>
       {params?.error ? (
         <p className="text-sm text-muted-foreground">
-          Code error: {params.error}
+          Detalhe do erro: {params.error}
         </p>
       ) : (
         <p className="text-sm text-muted-foreground">
-          An unspecified error occurred.
+          Ocorreu um erro não especificado.
         </p>
       )}
     </>
