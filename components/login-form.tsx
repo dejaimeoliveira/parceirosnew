@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import { getAuthErrorMessage } from "@/lib/auth/error-messages";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -30,15 +31,16 @@ export function LoginForm({
         body: JSON.stringify({ email, password }),
       });
 
-      const json = (await response.json()) as { error?: string };
+      const json = (await response.json().catch(() => ({}))) as { error?: string };
       if (!response.ok) {
-        throw new Error(json?.error || "Credenciais inválidas.");
+        setError(json?.error || getAuthErrorMessage(null, "login"));
+        return;
       }
 
       router.push("/protected");
       router.refresh();
-    } catch (loginError: unknown) {
-      setError(loginError instanceof Error ? loginError.message : "Ocorreu um erro ao entrar.");
+    } catch {
+      setError(getAuthErrorMessage(null, "login"));
     } finally {
       setIsLoading(false);
     }

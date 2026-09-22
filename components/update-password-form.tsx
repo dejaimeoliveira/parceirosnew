@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
+import { getAuthErrorMessage } from "@/lib/auth/error-messages";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -52,7 +53,7 @@ export function UpdatePasswordForm({
       setSuccess(true);
     } catch (err: unknown) {
       console.error("Erro ao atualizar senha:", err);
-      setError("Não foi possível alterar sua senha. Tente novamente.");
+      setError(getAuthErrorMessage(err, "update-password"));
     } finally {
       setIsLoading(false);
     }

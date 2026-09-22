@@ -2,11 +2,12 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Suspense } from "react";
+import { getAuthErrorMessageFromCode } from "@/lib/auth/error-messages";
 
 async function ErrorContent({
   searchParams,
 }: {
-  searchParams: Promise<{ error: string; type?: string }>;
+  searchParams: Promise<{ error_code?: string; type?: string }>;
 }) {
   const params = await searchParams;
 
@@ -31,15 +32,9 @@ async function ErrorContent({
       <CardHeader className="p-0 pb-2">
         <CardTitle className="text-2xl">Ocorreu um erro.</CardTitle>
       </CardHeader>
-      {params?.error ? (
-        <p className="text-sm text-muted-foreground">
-          Detalhe do erro: {params.error}
-        </p>
-      ) : (
-        <p className="text-sm text-muted-foreground">
-          Ocorreu um erro não especificado.
-        </p>
-      )}
+      <p className="text-sm text-muted-foreground">
+        {getAuthErrorMessageFromCode(params?.error_code, "confirm")}
+      </p>
     </>
   );
 }
@@ -47,7 +42,7 @@ async function ErrorContent({
 export default function Page({
   searchParams,
 }: {
-  searchParams: Promise<{ error: string; type?: string }>;
+  searchParams: Promise<{ error_code?: string; type?: string }>;
 }) {
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
@@ -58,7 +53,7 @@ export default function Page({
               <Suspense
                 fallback={
                   <CardHeader className="p-0 pb-2">
-                    <CardTitle className="text-2xl">Sorry, something went wrong.</CardTitle>
+                    <CardTitle className="text-2xl">Ocorreu um erro.</CardTitle>
                   </CardHeader>
                 }
               >

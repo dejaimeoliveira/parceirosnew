@@ -1,13 +1,14 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { hasEnvVars } from "@/lib/utils";
+import { getAuthErrorMessage } from "@/lib/auth/error-messages";
 
 export async function POST(request: NextRequest) {
   // Create a placeholder NextResponse to capture cookies set by Supabase
   let supabaseResponse = NextResponse.next();
 
   if (!hasEnvVars) {
-    return NextResponse.json({ error: "env-not-set" }, { status: 500 });
+    return NextResponse.json({ error: getAuthErrorMessage(null, "login") }, { status: 500 });
   }
 
   const body = await request.json();
@@ -37,7 +38,7 @@ export async function POST(request: NextRequest) {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 401 });
+      return NextResponse.json({ error: getAuthErrorMessage(error, "login") }, { status: 401 });
     }
 
     // Return a response that includes the cookies set by supabase
@@ -56,6 +57,6 @@ export async function POST(request: NextRequest) {
 
     return res;
   } catch (err) {
-    return NextResponse.json({ error: "server-error" }, { status: 500 });
+    return NextResponse.json({ error: getAuthErrorMessage(err, "login") }, { status: 500 });
   }
 }

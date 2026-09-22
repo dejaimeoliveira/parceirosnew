@@ -4,6 +4,7 @@ import { useState } from "react";
 import { KeyRound, MailCheck } from "lucide-react";
 
 import { createClient } from "@/lib/supabase/client";
+import { getAuthErrorMessage } from "@/lib/auth/error-messages";
 
 function maskEmail(email: string) {
   const [local, domain] = email.split("@");
@@ -14,6 +15,7 @@ function maskEmail(email: string) {
 
 export function AlterarSenha({ email }: { email: string }) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleEnviar = async () => {
     if (status === "sending") return;
@@ -28,6 +30,7 @@ export function AlterarSenha({ email }: { email: string }) {
       setStatus("sent");
     } catch (err) {
       console.error("Erro ao solicitar link de redefinição de senha:", err);
+      setErrorMessage(getAuthErrorMessage(err, "recovery"));
       setStatus("error");
     }
   };
@@ -72,7 +75,7 @@ export function AlterarSenha({ email }: { email: string }) {
             {status === "error" ? (
               <div className="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
                 <p className="font-semibold">Não foi possível enviar o link</p>
-                <p className="mt-1">Tente novamente em alguns instantes.</p>
+                <p className="mt-1">{errorMessage ?? "Tente novamente em alguns instantes."}</p>
               </div>
             ) : null}
 

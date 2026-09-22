@@ -1,12 +1,13 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { hasEnvVars } from "@/lib/utils";
+import { getAuthErrorMessage } from "@/lib/auth/error-messages";
 
 export async function POST(request: NextRequest) {
   let supabaseResponse = NextResponse.next();
 
   if (!hasEnvVars) {
-    return NextResponse.json({ error: "env-not-set" }, { status: 500 });
+    return NextResponse.json({ error: getAuthErrorMessage(null) }, { status: 500 });
   }
 
   const supabase = createServerClient(
@@ -33,7 +34,7 @@ export async function POST(request: NextRequest) {
     const { error } = await supabase.auth.signOut();
 
     // Return a response that includes any cookies set by Supabase
-    const res = NextResponse.json({ error: error?.message ?? null });
+    const res = NextResponse.json({ error: error ? getAuthErrorMessage(error) : null });
     const cookies = supabaseResponse.cookies.getAll();
     cookies.forEach((c: any) => {
       try {
@@ -45,6 +46,6 @@ export async function POST(request: NextRequest) {
 
     return res;
   } catch (err) {
-    return NextResponse.json({ error: "server-error" }, { status: 500 });
+    return NextResponse.json({ error: getAuthErrorMessage(err) }, { status: 500 });
   }
 }

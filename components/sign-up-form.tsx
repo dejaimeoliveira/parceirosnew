@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
 import { formatTelefone, isValidTelefone, sanitizeDigits } from "@/lib/indicacoes/cnpj";
 import { cn } from "@/lib/utils";
+import { getAuthErrorMessage } from "@/lib/auth/error-messages";
 
 const PERFIS_PUBLICOS = [
   { id: 3, label: "Consultor" },
@@ -89,11 +90,7 @@ export function SignUpForm({
       if (otpError) throw otpError;
       setSuccess(true);
     } catch (submitError: unknown) {
-      setError(
-        submitError instanceof Error
-          ? submitError.message
-          : "Não foi possível enviar o link de cadastro. Tente novamente.",
-      );
+      setError(getAuthErrorMessage(submitError, "signup"));
     } finally {
       setIsLoading(false);
     }

@@ -8,6 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
+import { getAuthErrorMessage } from "@/lib/auth/error-messages";
 
 const TERMO_VERSAO = "1.0";
 
@@ -61,7 +62,7 @@ export function ConcluirCadastroForm() {
       const supabase = createClient();
 
       const { error: passwordError } = await supabase.auth.updateUser({ password });
-      if (passwordError) throw new Error(passwordError.message);
+      if (passwordError) throw new Error(getAuthErrorMessage(passwordError, "update-password"));
 
       // Nome, telefone, e-mail e perfil não são reenviados aqui: a RPC os
       // obtém diretamente da identidade autenticada (auth.uid()) e dos
